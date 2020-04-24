@@ -1,24 +1,22 @@
 package com.csa.tests;
 
 import static io.restassured.RestAssured.given;
-import static io.restassured.RestAssured.when;
-import static org.hamcrest.Matchers.lessThan;
 
 import org.testng.annotations.Test;
 
 import com.csa.generics.BaseLib;
 import com.csa.generics.IConstants;
+import com.csa.util.JsonUtil;
 
 import io.restassured.http.ContentType;
 
 public class GetAllRecords extends BaseLib {
 
-	@Test
+	@Test(priority = 0)
 	public void getReourceWithValidData() {
 		// Bearer Token
-		given().auth().oauth2(token).get(IConstants.ALL_CUSTOMERS);
-
-		when().get(IConstants.ALL_CUSTOMERS).then().assertThat().statusCode(200).and().contentType(ContentType.JSON)
-				.and().time(lessThan(1000l));
+		token = JsonUtil.getJsonString(response, "token");
+		given().header("Authorization", "Bearer" + token).get(IConstants.SINGLE_CUSTOMER).then().assertThat()
+				.statusCode(200).and().contentType(ContentType.JSON);
 	}
 }
