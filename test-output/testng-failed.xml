@@ -5,7 +5,6 @@
     <classes>
       <class name="com.csa.tests.GetAllRecords">
         <methods>
-          <include name="authenticate"/>
           <include name="getReourceWithValidData"/>
           <include name="config"/>
         </methods>
